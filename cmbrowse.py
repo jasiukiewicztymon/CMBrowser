@@ -4,35 +4,31 @@
 
 # import section
 import sys
-import requests
-from bs4 import BeautifulSoup
+
+from requests import session
+from rich.console import Console
+from rich.markdown import Markdown
+from requests_html import HTML, HTMLSession
 
 # getting the first argument
-URL = sys.argv[1]
-
-def parse_html(html):
-    elem = BeautifulSoup(html, features="html.parser")
-    text = ''
-    for e in elem.descendants:
-        if isinstance(e, str):
-            text += e.strip()
-        elif e.name in ['br',  'p', 'h1', 'h2', 'h3', 'h4','tr', 'th']:
-            text += '\n'
-        elif e.name == 'li':
-            text += '\n- '
-    return text
+if len(sys.argv) > 1:
+    URL = sys.argv[1]
+else:
+    print("Invalid URL...")
+    exit()
 
 if URL[0:8] != "https://" and URL[0:7] != "http://":
     URL = "https://" + URL
 
-try:
-    HTML = requests.get(url = URL).text.split("<body>")[1].split("</body>")[0]
+if len(sys.argv) > 1:
+    session = HTMLSession()
+    r = session.get(URL)
 
-    imagesSrcArr = []
+    body = r.html.find('body', first=True)
+    html = body.html
 
-    
-
-    CMHTML = parse_html(HTML)
-    print(CMHTML)
-except:
-    print("Error 404 - Page not find")
+    text = "This is a link"
+    target = "http://example.com"
+    print(f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
+else:
+    print("Error 001: Invalid URL argument")
