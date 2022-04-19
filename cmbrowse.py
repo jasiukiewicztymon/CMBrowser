@@ -3,32 +3,64 @@
 # ==========================
 
 # import section
-import sys
 
+import sys
 from requests import session
 from rich.console import Console
 from rich.markdown import Markdown
 from requests_html import HTML, HTMLSession
+import markdownify
 
 # getting the first argument
 if len(sys.argv) > 1:
     URL = sys.argv[1]
 else:
+    #exiting in case of invalid argument
     print("Invalid URL...")
     exit()
 
+# verification of the url
 if URL[0:8] != "https://" and URL[0:7] != "http://":
     URL = "https://" + URL
 
-if len(sys.argv) > 1:
-    session = HTMLSession()
-    r = session.get(URL)
+# ===============================================
+# How the browser work ?
+# It's very simple and it pass only in few moves 
+#
+# 1 . Getting the url with the execution argument
+# 2 . Getting the website HTML content
+# 3 . Translating it to MarkDown
+# 4 . Printing formated website with ascii images
+# ===============================================
 
-    body = r.html.find('body', first=True)
-    html = body.html
+# oppening the session
+session = HTMLSession()
+r = session.get(URL)
 
-    text = "This is a link"
-    target = "http://example.com"
-    print(f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
-else:
-    print("Error 001: Invalid URL argument")
+# getting the html code
+body = r.html.find('body', first=True)
+html = body.html
+
+title = "Open in browser"
+
+# printing the menu
+print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘')
+print(f"\u001b]8;;{URL}\u001b\\{title}\u001b]8;;\u001b\\" + '     url: ' + URL)
+print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘\n\n')
+
+# getting the html content to markdown content
+h = markdownify.markdownify(html, heading_style="ATX")
+pl = h.split('\n')
+
+temp = ''
+
+console = Console()
+
+markdown = Markdown(h)
+console.print(markdown)
+
+#for l in pl:
+#    if l != '':
+        ## Reading the titles 
+#        if l.startswith('# '):
+#            console.print(l[2:], style="bold ")
