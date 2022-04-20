@@ -46,9 +46,10 @@ html = body.html
 title = "Open in browser"
 
 # printing the menu
-print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘')
+print('\n')
 print(f"\u001b]8;;{URL}\u001b\\{title}\u001b]8;;\u001b\\" + '     url: ' + URL)
-print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘\n\n')
+print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘')
+print('\n')
 
 def href(title, url):
     return f"\u001b]8;;{url}\u001b\\{title}\u001b]8;;\u001b\\"
@@ -73,9 +74,11 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
@@ -100,9 +103,11 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
@@ -127,13 +132,15 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
-                        l = '      ' + l + ' : '
+                        l = '            ' + l + ' : '
                         t = ''
                         for _ in range(250 - u):
                             t += ' '
@@ -142,7 +149,7 @@ for l in pl:
                         console.print('\n')
                 else:
                     u = len(l)
-                    l = '      ' + l + ' : '
+                    l = '            ' + l + ' : '
                     t = ''
                     for _ in range(250 - u):
                         t += ' '
@@ -154,13 +161,15 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
-                        l = '      ' + l + ' : '
+                        l = '            ' + l + ' : '
                         t = ''
                         for _ in range(250 - u):
                             t += ' '
@@ -169,7 +178,7 @@ for l in pl:
                         console.print('\n')
                 else:
                     u = len(l)
-                    l = '      ' + l + ' : '
+                    l = '            ' + l + ' : '
                     t = ''
                     for _ in range(250 - u):
                         t += ' '
@@ -181,13 +190,15 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
-                        l = '      ' + l + ' : '
+                        l = '                  ' + l + ' : '
                         t = ''
                         for _ in range(250 - u):
                             t += ' '
@@ -196,7 +207,7 @@ for l in pl:
                         console.print('\n')
                 else:
                     u = len(l)
-                    l = '      ' + l + ' : '
+                    l = '                  ' + l + ' : '
                     t = ''
                     for _ in range(250 - u):
                         t += ' '
@@ -208,13 +219,15 @@ for l in pl:
             if len(l) > 0:
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                        console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
                         l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        l = '      ' + l + ' : '
-                        console.print(l, style="bold black on white")
+                        console.print('\n')
+                        l = '            ▶ ' + l
+                        console.print(l, style="bold")
                         console.print('\n')
                     else:
                         u = len(l)
-                        l = '      ' + l + ' : '
+                        l = '                  ' + l + ' : '
                         t = ''
                         for _ in range(250 - u):
                             t += ' '
@@ -223,7 +236,7 @@ for l in pl:
                         console.print('\n')
                 else:
                     u = len(l)
-                    l = '      ' + l + ' : '
+                    l = '                  ' + l + ' : '
                     t = ''
                     for _ in range(250 - u):
                         t += ' '
