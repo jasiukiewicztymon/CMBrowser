@@ -67,11 +67,29 @@ type = 'null'
 console = Console()
 
 for l in pl:
-    ## Reading the titles 
     if type == 'null':
-        if l.startswith('# '):
+        # Lists
+        if l.startswith('* '):
+            l = l[2:]
+            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+            console.print('🔵 ' + l)
+        elif l.startswith('\t+ '):
+            l = l[3:]
+            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+            console.print('\t🔹 ' + l)
+
+        # Separator
+        elif l == '***\n' or l == '---n':
+            print('____________________________________________________________________')
+            # here
+
+        # Headers
+        elif l.startswith('# '):
             l = l[2:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -101,6 +119,7 @@ for l in pl:
         elif l.startswith('## '):
             l = l[3:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -130,6 +149,7 @@ for l in pl:
         elif l.startswith('### '):
             l = l[4:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -159,6 +179,7 @@ for l in pl:
         elif l.startswith('#### '):
             l = l[5:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -188,6 +209,7 @@ for l in pl:
         elif l.startswith('##### '):
             l = l[6:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -217,6 +239,7 @@ for l in pl:
         elif l.startswith('###### '):
             l = l[7:]
             if len(l) > 0:
+                console.print('\n')
                 if len(l) >= 6:
                     if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
                         console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
@@ -243,3 +266,8 @@ for l in pl:
 
                     console.print(l + t, style="bold black on white")
                     console.print('\n')
+        else:
+            if len(l) > 1:
+                print(l)
+
+print('\n\n')
