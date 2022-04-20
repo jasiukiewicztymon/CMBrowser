@@ -4,6 +4,8 @@
 
 # import section
 
+import os
+from os import system
 import sys
 from requests import session
 from rich.console import Console
@@ -50,17 +52,49 @@ print('𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘𝄘�
 
 # getting the html content to markdown content
 h = markdownify.markdownify(html, heading_style="ATX")
+
+with open('h.txt', 'w', encoding='utf-8') as f:
+    f.write(h)
+
 pl = h.split('\n')
 
-temp = ''
+type = 'null'
 
 console = Console()
 
-markdown = Markdown(h)
-console.print(markdown)
+for l in pl:
+    ## Reading the titles 
+    if type == 'null':
+        if l.startswith('# '):
+            if len(l[2:]) > 0:
+                t = ''
+                for i in range(len(l[2:])):
+                    t += ' '
+                t += '                                    '
+                console.print(t, style="bold black on white")
 
-#for l in pl:
-#    if l != '':
-        ## Reading the titles 
-#        if l.startswith('# '):
-#            console.print(l[2:], style="bold ")
+                console.print('                  ' + l[2:] + '                  ', style="bold black on white")
+
+                console.print(t, style="bold black on white")
+
+                console.print('\n')
+        elif l.startswith('## '):
+            if len(l[3:]) > 0:
+                console.print('                  ' + l[3:] + '                  ', style="bold black on white")
+                console.print('\n')
+        elif l.startswith('### '):
+            if len(l[4:]) > 0:
+                console.print('            ' + l[4:] + '            ', style="bold black on white")
+                console.print('\n')
+        elif l.startswith('#### '):
+            if len(l[5:]) > 0:
+                console.print('            ' + l[5:] + '            ', style="bold black on white")
+                console.print('\n')
+        elif l.startswith('##### '):
+            if len(l[6:]) > 0:
+                console.print('      ' + l[6:] + '      ', style="bold black on white")
+                console.print('\n')
+        elif l.startswith('###### '):
+            if len(l[7:]) > 0:
+                console.print('      ' + l[7:] + '      ', style="bold black on white")
+                console.print('\n')
