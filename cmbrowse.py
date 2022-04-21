@@ -139,7 +139,6 @@ for l in pl:
                         console.print('\n')
                         l = '            ▶ ' + l
                         console.print(l, style="bold")
-                        console.print('\n')
                     else:
                         u = len(l)
                         l = '      ' + l + ' : '
@@ -278,9 +277,22 @@ for l in pl:
 
                     console.print(l + t, style="bold black on white")
                     console.print('\n')
+
+        # Links and images
+        elif len(l) >= 4:
+            if l.startswith('[!') and l[-1] == ')' and l.find('](') != -1:
+                print('img')
+            elif l.startswith('[') and l[-1] == ')' and l.find('](') != -1:
+                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+                console.print(l)
+            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                l = href(l[2:(l.find(']'))], l[(l.find('(')+1):-1])
+                console.print(l)
+            else:
+                if len(l) > 1:
+                    console.print(Markdown(l))
         else:
             if len(l) > 1:
-                print(l)
-                #console.print(Markdown(l))
+                console.print(Markdown(l))
 
 print('\n\n')
