@@ -71,19 +71,31 @@ for l in pl:
         # Lists
         if l.startswith('* '):
             l = l[2:]
-            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+            if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
                 l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
-            console.print('🔵 ' + l)
+                console.print('🔵 ' + l)
+            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                console.print('\t🔹 <img>')
+            else:
+                l = '🔵 ' + l
+                console.print(Markdown(l))
         elif l.startswith('\t+ '):
             l = l[3:]
-            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+            if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
                 l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
-            console.print('\t🔹 ' + l)
+                console.print('\t🔹 ' + l)
+            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                console.print('\t🔹 <img>')
+            else:
+                print('\t🔹 ', end='')
+                console.print(Markdown(l))
+                console.print('\033[1A\033[1A')
 
         # Separator
-        elif l == '***\n' or l == '---n':
-            print('____________________________________________________________________')
-            # here
+        elif l == '***' or l == '---':
+            print('')
+            console.print('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+            print('')
 
         # Headers
         elif l.startswith('# '):
@@ -269,5 +281,6 @@ for l in pl:
         else:
             if len(l) > 1:
                 print(l)
+                #console.print(Markdown(l))
 
 print('\n\n')
