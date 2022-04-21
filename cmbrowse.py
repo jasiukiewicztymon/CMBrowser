@@ -62,55 +62,307 @@ with open('h.txt', 'w', encoding='utf-8') as f:
 
 pl = h.split('\n')
 
-type = 'null'
+tmp = ''
 
 console = Console()
 
 for l in pl:
     l = l.strip()
-    if type == 'null':
+    if tmp != '':
+        if len(l) > 0:
+            if l[-1] == ')' and l.find('](') != -1:
+                l = tmp + ' ' + l
+            else:
+                l, tmp = tmp, l
+
+                # Start
+
+                if l.startswith('* '):
+                    l = l[2:]
+                    if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
+                        l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+                        console.print('🔵 ' + l)
+                    elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                        console.print('\t🔹 <img>')
+                    else:
+                        l = '🔵 ' + l
+                        console.print(Markdown(l))
+                elif l.startswith('+ '):
+                    l = l[2:]
+                    if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
+                        l = href(l[0:(l.find(']'))], l[(l.find('(')+1):-1])
+                        console.print('\t🔹 ' + l)
+                    elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                        console.print('\t🔹 <img>')
+                    else:
+                        print('\t🔹 ', end='')
+                        console.print(Markdown(l))
+                        console.print('\033[1A\033[1A')
+
+                # Separator
+                elif l == '***' or l == '---':
+                    print('')
+                    console.print('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                    print('')
+
+                # Headers
+                elif l.startswith('# '):
+                    l = l[2:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                                console.print('\n')
+                            else:
+                                u = len(l)
+                                l = '      ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '      ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+                elif l.startswith('## '):
+                    l = l[3:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                            else:
+                                u = len(l)
+                                l = '      ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '      ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+                elif l.startswith('### '):
+                    l = l[4:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                                console.print('\n')
+                            else:
+                                u = len(l)
+                                l = '            ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '            ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+                elif l.startswith('#### '):
+                    l = l[5:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                                console.print('\n')
+                            else:
+                                u = len(l)
+                                l = '            ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '            ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+                elif l.startswith('##### '):
+                    l = l[6:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                                console.print('\n')
+                            else:
+                                u = len(l)
+                                l = '                  ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '                  ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+                elif l.startswith('###### '):
+                    l = l[7:]
+                    if len(l) > 0:
+                        console.print('\n')
+                        if len(l) >= 6:
+                            if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                                console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                                l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                                console.print('\n')
+                                l = '            ▶ ' + l
+                                console.print(l, style="bold")
+                                console.print('\n')
+                            else:
+                                u = len(l)
+                                l = '                  ' + l + ' : '
+                                t = ''
+                                for _ in range(250 - u):
+                                    t += ' '
+
+                                console.print(l + t, style="bold black on white")
+                                console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '                  ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
+
+                # Links and images
+                elif len(l) >= 4:
+                    if l.startswith('[!') and l[-1] == ')' and l.find('](') != -1:
+                        print('img')
+                    elif l.startswith('[') and l[-1] == ')' and l.find('](') != -1:
+                        l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+                        console.print(l)
+                    elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                        l = href(l[2:(l.find(']'))], l[(l.find('(')+1):-1])
+                        console.print(l)
+                    else:
+                        if len(l) > 1:
+                            console.print(Markdown(l))
+                else:
+                    if len(l) > 1:
+                        console.print(Markdown(l))
+
+                # End
+
+                l, tmp = tmp, l
+
+            tmp = ''
+    if tmp == '':
         # Lists
-        if l.startswith('* '):
-            l = l[2:]
-            if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
-                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
-                console.print('🔵 ' + l)
-            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
-                console.print('\t🔹 <img>')
-            else:
-                l = '🔵 ' + l
-                console.print(Markdown(l))
-        elif l.startswith('+ '):
-            l = l[3:]
-            if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
-                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
-                console.print('\t🔹 ' + l)
-            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
-                console.print('\t🔹 <img>')
-            else:
-                print('\t🔹 ', end='')
-                console.print(Markdown(l))
-                console.print('\033[1A\033[1A')
+        if len(l) > 0:
+            if l[0] == '[' and l[-1] != ')':
+                tmp = l
+            elif l.startswith('* '):
+                l = l[2:]
+                if l[0] == '[![' and l[-1] == ')' and l.find('](') != -1:
+                    #image
+                    console.print('🔵 ' + l)
+                elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                    console.print('\t🔹 <img>')
+                else:
+                    l = '🔵 ' + l
+                    console.print(Markdown(l))
+            elif l.startswith('+ '):
+                l = l[1:]
+                if l[0] == '[![' and l[-1] == ')' and l.find('](') != -1:
+                    # image
+                    console.print('\t🔹 ' + l)
+                if l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                    console.print('\t🔹 <img>')
+                else:
+                    print('\t🔹 ', end='')
+                    console.print(Markdown(l))
+                    console.print('\033[1A\033[1A')
 
-        # Separator
-        elif l == '***' or l == '---':
-            print('')
-            console.print('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-            print('')
+            # Separator
+            elif l == '***' or l == '---':
+                print('')
+                console.print('\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                print('')
 
-        # Headers
-        elif l.startswith('# '):
-            l = l[2:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
-                        console.print('\n')
+            # Headers
+            elif l.startswith('# '):
+                l = l[2:]
+                if len(l) > 0:
+                    console.print('\n')
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                            console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '      ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '      ' + l + ' : '
@@ -120,26 +372,26 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
-                else:
-                    u = len(l)
-                    l = '      ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
+            elif l.startswith('## '):
+                l = l[3:]
+                if len(l) > 0:
                     console.print('\n')
-        elif l.startswith('## '):
-            l = l[3:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('      ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                        else:
+                            u = len(l)
+                            l = '      ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '      ' + l + ' : '
@@ -149,27 +401,27 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
-                else:
-                    u = len(l)
-                    l = '      ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
+            elif l.startswith('### '):
+                l = l[4:]
+                if len(l) > 0:
                     console.print('\n')
-        elif l.startswith('### '):
-            l = l[4:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
-                        console.print('\n')
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                            console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '            ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '            ' + l + ' : '
@@ -179,27 +431,27 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
-                else:
-                    u = len(l)
-                    l = '            ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
+            elif l.startswith('#### '):
+                l = l[5:]
+                if len(l) > 0:
                     console.print('\n')
-        elif l.startswith('#### '):
-            l = l[5:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
-                        console.print('\n')
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('            ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                            console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '            ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '            ' + l + ' : '
@@ -209,27 +461,27 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
-                else:
-                    u = len(l)
-                    l = '            ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
+            elif l.startswith('##### '):
+                l = l[6:]
+                if len(l) > 0:
                     console.print('\n')
-        elif l.startswith('##### '):
-            l = l[6:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
-                        console.print('\n')
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                            console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '                  ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '                  ' + l + ' : '
@@ -239,27 +491,27 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
-                else:
-                    u = len(l)
-                    l = '                  ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
+            elif l.startswith('###### '):
+                l = l[7:]
+                if len(l) > 0:
                     console.print('\n')
-        elif l.startswith('###### '):
-            l = l[7:]
-            if len(l) > 0:
-                console.print('\n')
-                if len(l) >= 6:
-                    if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
-                        console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
-                        l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
-                        console.print('\n')
-                        l = '            ▶ ' + l
-                        console.print(l, style="bold")
-                        console.print('\n')
+                    if len(l) >= 6:
+                        if l[0] == '[' and l[-1] == ')' and l.find(']') != -1 and l.find('(') != -1:
+                            console.print('                  ' + l[1:(l.find(']') - 1)] + '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', style="bold black on white")
+                            l = href(l[1:(l.find(']') - 1)], l[(l.find('(')+1):-1])
+                            console.print('\n')
+                            l = '            ▶ ' + l
+                            console.print(l, style="bold")
+                            console.print('\n')
+                        else:
+                            u = len(l)
+                            l = '                  ' + l + ' : '
+                            t = ''
+                            for _ in range(250 - u):
+                                t += ' '
+
+                            console.print(l + t, style="bold black on white")
+                            console.print('\n')
                     else:
                         u = len(l)
                         l = '                  ' + l + ' : '
@@ -269,31 +521,22 @@ for l in pl:
 
                         console.print(l + t, style="bold black on white")
                         console.print('\n')
+
+            # Links and images
+            elif len(l) >= 4:
+                if l.startswith('[!') and l[-1] == ')' and l.find('](') != -1:
+                    print('img')
+                elif l.startswith('[') and l[-1] == ')' and l.find('](') != -1:
+                    l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
+                    console.print(l)
+                elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
+                    l = href(l[2:(l.find(']'))], l[(l.find('(')+1):-1])
+                    console.print(l)
                 else:
-                    u = len(l)
-                    l = '                  ' + l + ' : '
-                    t = ''
-                    for _ in range(250 - u):
-                        t += ' '
-
-                    console.print(l + t, style="bold black on white")
-                    console.print('\n')
-
-        # Links and images
-        elif len(l) >= 4:
-            if l.startswith('[!') and l[-1] == ')' and l.find('](') != -1:
-                print('img')
-            elif l.startswith('[') and l[-1] == ')' and l.find('](') != -1:
-                l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
-                console.print(l)
-            elif l.startswith('![') and l[-1] == ')' and l.find('](') != -1:
-                l = href(l[2:(l.find(']'))], l[(l.find('(')+1):-1])
-                console.print(l)
+                    if len(l) > 1:
+                        console.print(Markdown(l))
             else:
                 if len(l) > 1:
                     console.print(Markdown(l))
-        else:
-            if len(l) > 1:
-                console.print(Markdown(l))
 
 print('\n\n')
