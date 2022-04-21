@@ -67,6 +67,7 @@ type = 'null'
 console = Console()
 
 for l in pl:
+    l = l.strip()
     if type == 'null':
         # Lists
         if l.startswith('* '):
@@ -79,7 +80,7 @@ for l in pl:
             else:
                 l = '🔵 ' + l
                 console.print(Markdown(l))
-        elif l.startswith('\t+ '):
+        elif l.startswith('+ '):
             l = l[3:]
             if l[0] == '[' and l[-1] == ')' and l.find('](') != -1:
                 l = href(l[1:(l.find(']'))], l[(l.find('(')+1):-1])
