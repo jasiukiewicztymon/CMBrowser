@@ -6,6 +6,12 @@ Browser made for console enthousiaste, and servers
 
 Enable for only console systems and console user's to use a beautiful browser with ascii printing images and clickable link... Now debugging a server side problem will be easier (I know the pain 😂)
 
+### Try it!
+
+Just execute the python code and give as argument this website https://jasiukiewicztymon.github.io/CMBrowser/
+
+In few seconds you should see the website at the screen
+
 ### What options will have the browser?
 
 - Ascii printed images
